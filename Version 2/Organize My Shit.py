@@ -1,9 +1,8 @@
 import shutil
 import os
 import datetime as dt
-import mutagen
-""" from mutagen.easyid3 import EasyID3 
-from mutagen.id3 import ID3NoHeaderError """
+from mutagen.easyid3 import EasyID3
+from mutagen.id3 import ID3NoHeaderError
 
 
 workingDir = os.getcwd()
@@ -42,17 +41,21 @@ def moving(file,dirName):
 
 def getArtists(file):
     try:
-        audio = mutagen.EasyID3(file)
-        return (audio['artist'][0])
-    except mutagen.ID3NoHeaderError or KeyError:
+        audio = EasyID3(file)
+        return (audio['artist'][0].replace("?","").replace("/","").replace("\\","").replace("|","").replace("*","").replace(":","").replace("<","").replace(">","").replace("\"",""))
+    except ID3NoHeaderError:
+        return False
+    except KeyError:
         return False
 
 
 def getAlbum(file):
     try:    
-        audio = mutagen.EasyID3(file)
-        return (audio['album'][0])
-    except mutagen.ID3NoHeaderError or KeyError:
+        audio = EasyID3(file)
+        return (audio['album'][0].replace("?","").replace("/","").replace("\\","").replace("|","").replace("*","").replace(":","").replace("<","").replace(">","").replace("\"",""))
+    except ID3NoHeaderError:
+        return False
+    except KeyError:
         return False
     
 
@@ -175,11 +178,11 @@ def getFilesByType():
                 pdf = os.path.join(workingDir, "PDF's")
                 moving(file, pdf)
 
-            elif(filetype == ".docx"):
+            elif(filetype == ".docx" or filetype == ".doc"):
                 docs = os.path.join(workingDir, "Word Documents")
                 moving(file, docs)
 
-            elif(filetype == ".pptx"):
+            elif(filetype == ".pptx" or filetype == ".ppt"):
                 ppoints = os.path.join(workingDir, "PowerPoints")
                 moving(file, ppoints)
 

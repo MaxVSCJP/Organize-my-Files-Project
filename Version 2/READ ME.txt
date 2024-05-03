@@ -3,4 +3,8 @@ Version 2
 	- Now organizes photos by year and month 
 	- Now organizes music by artist and album
 
+- Videos will be in your Videos folder
+- Music will be in your Music folder
+- Photos will be in your Pictures folder
+
 * If you want to see the code file and run the program yourself, use cmd, not an inbuilt terminal like in VS code (runs code but has a tendency to not work on proper folder/directory)
